@@ -1,38 +1,18 @@
-from flask import Flask, jsonify, render_template, request
+from flask import Flask, request
 import json
-import psycopg2
 
 app = Flask(__name__)
 
-'''
-with app.app_context(), app.test_request_context():
-    login_render = render_template("login.html")
-
-
-
-conn = psycopg2.connect(
-    host="localhost",
-    database="trucos",
-    user="postgres",
-    password="icg28122002"
-)
-cur = conn.cursor()
-cur.execute("select * from junio14 ORDER BY correo ASC;")
-filas = cur.fetchall()
-print(filas)
-cur.close()
-conn.close()
-'''
-
+file_path = "json_messages.json"
 
 def add_to_json_file(json_data):
     loaded_json = dict()
 
-    with open("json_messages.json") as json_file:
+    with open(file_path) as json_file:
         loaded_json = json.load(json_file)
         loaded_json.update(json_data)
     
-    with open("json_messages.json", "w") as json_file:
+    with open(file_path, "w") as json_file:
         json.dump(loaded_json, json_file)
 
     return {"status": "ok"}
